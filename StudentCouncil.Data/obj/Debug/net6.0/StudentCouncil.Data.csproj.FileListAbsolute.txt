@@ -1,0 +1,14 @@
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\bin\Debug\net6.0\StudentCouncil.Data.deps.json
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\bin\Debug\net6.0\StudentCouncil.Data.runtimeconfig.json
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\bin\Debug\net6.0\StudentCouncil.Data.dll
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\bin\Debug\net6.0\ref\StudentCouncil.Data.dll
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\bin\Debug\net6.0\StudentCouncil.Data.pdb
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.csproj.AssemblyReference.cache
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.AssemblyInfoInputs.cache
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.AssemblyInfo.cs
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.csproj.CoreCompileInputs.cache
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.dll
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\ref\StudentCouncil.Data.dll
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.pdb
+C:\Users\777\Desktop\StudentCouncil\StudentCouncil.Data\obj\Debug\net6.0\StudentCouncil.Data.genruntimeconfig.cache

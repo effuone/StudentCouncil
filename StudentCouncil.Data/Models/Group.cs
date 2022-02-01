@@ -1,24 +1,19 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace StudentCouncil.Data.Models
 {
-    [Table("Groups")]
-    public class Group
+    public partial class Group
     {
-        [Key]
-        [Required]
-        public int GroupId { get; set; }
-        [Required]
-        [MaxLength(4)]
-        public char GroupChar { get; set; }
-        [Required]
-        public int Grade {get; set;}
-        public void UpgradeGroups(){
-            if(DateTime.Now == new DateTime(DateTime.Now.Year, 9, 1))
-            {
-                Grade++;
-            }
+        public Group()
+        {
+            Students = new HashSet<Student>();
         }
+
+        public int GroupId { get; set; }
+        public int Grade { get; set; }
+        public string GroupChar { get; set; }
+
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

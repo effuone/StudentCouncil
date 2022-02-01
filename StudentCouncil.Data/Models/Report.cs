@@ -1,22 +1,15 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace StudentCouncil.Data.Models
 {
-    [Table("Reports")]
-    public class Report
+    public partial class Report
     {
-        [Key]
-        [Required]
         public int ReportId { get; set; }
-        [Required]
-        [MaxLength(100)]
-        public string ReportName {get; set;}
-        [Required]
-        public string Description {get; set;}
-        [Required]
-        public Member Author {get; set;}
-        [Required]
-        public IEnumerable<FileStructure> File {get; set;}
+        public int CuratorId { get; set; }
+        public string ReportName { get; set; }
+        public string Description { get; set; }
+
+        public virtual Curator Curator { get; set; }
     }
 }

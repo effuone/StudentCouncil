@@ -1,20 +1,21 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace StudentCouncil.Data.Models
 {
-    [Table("Members")]
-    public class Member
+    public partial class Member
     {
-        [Key]
-        [Required]
+        public Member()
+        {
+            Curators = new HashSet<Curator>();
+            Plans = new HashSet<Plan>();
+        }
+
         public int MemberId { get; set; }
-        [Required]
-        public Student Student { get; set; }
-        [Required]
-        public DateTime EntryDate {get; set;}
-        [Required]
-        [ForeignKey("Departments")]
-        public int DepartmentId {get; set;}
+        public int StudentId { get; set; }
+
+        public virtual Student Student { get; set; }
+        public virtual ICollection<Curator> Curators { get; set; }
+        public virtual ICollection<Plan> Plans { get; set; }
     }
 }

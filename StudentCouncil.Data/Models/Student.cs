@@ -1,29 +1,22 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace StudentCouncil.Data.Models
 {
-    public class Student
+    public partial class Student
     {
-        [Key]
-        [Required]
+        public Student()
+        {
+            Members = new HashSet<Member>();
+        }
+
         public int StudentId { get; set; }
-        [Required]
-        public string FirstName {get ;set;}
-        [Required]
-        public string LastName {get; set;}
-        [Required]
-        public string UserId {get; set;}
-        [Required]
-        [MaxLength(40)]
-        public string Email { get; set; }
-        [Required]
-        [MaxLength(15)]
-        public string PhoneNumber { get; set; }
-        public FileStructure Avatar {get; set;}
-        [Required]
-        public School School {get; set;}
-        [Required]
-        public Group Group {get; set;}
+        public int CouncilUserId { get; set; }
+        public int SchoolId { get; set; }
+        public int GroupId { get; set; }
+
+        public virtual Group Group { get; set; }
+        public virtual School School { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

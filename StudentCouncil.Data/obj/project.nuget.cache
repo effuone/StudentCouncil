@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "W8IfcBodz5PDHZgScK7TXvgoo1DvBJCkLPwallPT9V+0qtO1nmbWyoAe7FdGruPDevYA0e1Xvs6uWYUzEPwWXQ==",
+  "dgSpecHash": "j+W4kBQiKOSsH5eS5uXmnN9hmVUQrBiyhWJ1PnwjzWTel33grphew7kBWqkeQrYHjjWeIdNgte30iyU+EGcLVg==",
   "success": true,
   "projectFilePath": "C:\\Users\\777\\Desktop\\StudentCouncil\\StudentCouncil.Data\\StudentCouncil.Data.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\777\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\777\\.nuget\\packages\\dapper.contrib\\2.0.78\\dapper.contrib.2.0.78.nupkg.sha512",
     "C:\\Users\\777\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\777\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\777\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
