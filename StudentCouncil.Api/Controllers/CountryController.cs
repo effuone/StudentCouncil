@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentCouncil.Data.Data;
 using StudentCouncil.Data.Models;
+using StudentCouncil.Data.ViewModels;
 
 namespace StudentCouncil.Api.Controllers
 {
@@ -24,65 +25,64 @@ namespace StudentCouncil.Api.Controllers
 
         // GET: api/Country
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
+        public async Task<IEnumerable<CountryVm>> GetCountriesAsync()
         {
-            return await _context.Countries.ToListAsync();
+            var countries = await _context.Countries.ToListAsync();
+            var viewModelList = new List<CountryVm>();
+            foreach (var country in countries)
+            {
+                var vm = new CountryVm();
+                vm.CountryName = country.CountryName;
+                vm.CountryId = country.CountryId;
+                viewModelList.Add(vm);
+            }
+            return viewModelList;
         }
 
         // GET: api/Country/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Country>> GetCountry(int id)
+        public async Task<ActionResult<CountryVm>> GetCountry(int id)
         {
             var country = await _context.Countries.FindAsync(id);
-
             if (country == null)
             {
                 return NotFound();
             }
-
-            return country;
+            var vm = new CountryVm();
+            vm.CountryName = country.CountryName;
+            vm.CountryId = country.CountryId;
+            return vm;
         }
 
         // PUT: api/Country/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCountry(int id, Country country)
+        public async Task<IActionResult> PutCountry(int id, UpdateCountryVm country)
         {
-            if (id != country.CountryId)
+            var existingCountry = await _context.Countries.FindAsync(id);
+            if(existingCountry is null)
             {
-                return BadRequest();
+                return NotFound();
             }
-
-            _context.Entry(country).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CountryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            existingCountry.CountryName = country.CountryName;
+            _context.Countries.Update(existingCountry);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 
         // POST: api/Country
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Country>> PostCountry(Country country)
+        public async Task<ActionResult<CountryVm>> PostCountry(CreateCountryVm country)
         {
-            _context.Countries.Add(country);
+            var newCountry = new Country();
+            newCountry.CountryName = country.CountryName;
+            _context.Countries.Add(newCountry);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCountry", new { id = country.CountryId }, country);
+            var vm = new CountryVm();
+            vm.CountryId = newCountry.CountryId;
+            vm.CountryName = country.CountryName;
+            return CreatedAtAction("GetCountry", new { id = newCountry.CountryId }, vm);
         }
 
         // DELETE: api/Country/5

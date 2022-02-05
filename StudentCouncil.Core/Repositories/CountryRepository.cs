@@ -1,3 +1,5 @@
+using System.Data;
+using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using StudentCouncil.Core.Interfaces;
 using StudentCouncil.Data.Data;
@@ -7,54 +9,29 @@ namespace StudentCouncil.Core.Repositories
 {
     public class CountryRepository : IAsyncRepository<Country>
     {
-        private readonly StudentCouncilDbContext _context;
-
-        public CountryRepository(StudentCouncilDbContext context)
+        public Task<int> CreateAsync(Country model)
         {
-            _context = context;
+            throw new NotImplementedException();
         }
 
-        public async Task<int> CreateAsync(Country model)
+        public Task DeleteAsync(int id)
         {
-            await _context.Countries.AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model.CountryId;
+            throw new NotImplementedException();
         }
 
-        public async Task DeleteAsync(int id)
+        public Task<IEnumerable<Country>> GetAllAsync()
         {
-            var existingCountry = await _context.Countries.FindAsync(id);
-            if(existingCountry is not null)
-            {
-                _context.Countries.Remove(existingCountry);
-            }
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Country>> GetAllAsync()
+        public Task<Country> GetAsync(int id)
         {
-            return await _context.Countries.ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<Country> GetAsync(int id)
+        public Task<Country> UpdateAsync(int id, Country model)
         {
-            var country = await _context.Countries.FindAsync(id);
-            if(country is not null)
-            return country;
-            else throw new ArgumentNullException();
-
-        }
-
-        public async Task<Country> UpdateAsync(int id, Country model)
-        {
-            var country = await _context.Countries.FindAsync(id);
-            if(country is not null)
-            {
-                _context.Countries.Update(model);
-                await _context.SaveChangesAsync();
-                return model;
-            }
-            else throw new ArgumentNullException();
+            throw new NotImplementedException();
         }
     }
 }
