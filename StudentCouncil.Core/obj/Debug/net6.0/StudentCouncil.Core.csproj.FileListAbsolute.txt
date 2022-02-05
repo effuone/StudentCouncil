@@ -1,0 +1,15 @@
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/bin/Debug/net6.0/StudentCouncil.Core.deps.json
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/bin/Debug/net6.0/StudentCouncil.Core.dll
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/bin/Debug/net6.0/ref/StudentCouncil.Core.dll
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/bin/Debug/net6.0/StudentCouncil.Core.pdb
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/bin/Debug/net6.0/StudentCouncil.Data.dll
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/bin/Debug/net6.0/StudentCouncil.Data.pdb
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.csproj.AssemblyReference.cache
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.AssemblyInfoInputs.cache
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.AssemblyInfo.cs
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.csproj.CoreCompileInputs.cache
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.csproj.CopyComplete
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.dll
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/ref/StudentCouncil.Core.dll
+/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/Debug/net6.0/StudentCouncil.Core.pdb

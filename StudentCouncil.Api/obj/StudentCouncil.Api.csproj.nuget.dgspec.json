@@ -1,0 +1,262 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Api/StudentCouncil.Api.csproj": {}
+  },
+  "projects": {
+    "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Api/StudentCouncil.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Api/StudentCouncil.Api.csproj",
+        "projectName": "StudentCouncil.Api",
+        "projectPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Api/StudentCouncil.Api.csproj",
+        "packagesPath": "/home/effuone/.nuget/packages/",
+        "outputPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/effuone/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/StudentCouncil.Core.csproj": {
+                "projectPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/StudentCouncil.Core.csproj"
+              },
+              "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/StudentCouncil.Data.csproj": {
+                "projectPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/StudentCouncil.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/StudentCouncil.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/StudentCouncil.Core.csproj",
+        "projectName": "StudentCouncil.Core",
+        "projectPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/StudentCouncil.Core.csproj",
+        "packagesPath": "/home/effuone/.nuget/packages/",
+        "outputPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/effuone/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/StudentCouncil.Data.csproj": {
+                "projectPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/StudentCouncil.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/StudentCouncil.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/StudentCouncil.Data.csproj",
+        "projectName": "StudentCouncil.Data",
+        "projectPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/StudentCouncil.Data.csproj",
+        "packagesPath": "/home/effuone/.nuget/packages/",
+        "outputPath": "/home/effuone/Desktop/StudentCouncil/StudentCouncil/StudentCouncil.Data/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/effuone/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "Dapper.Contrib": {
+              "target": "Package",
+              "version": "[2.0.78, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
