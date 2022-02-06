@@ -46,31 +46,33 @@ namespace StudentCouncil.Api.Controllers
 
         // GET: api/Country/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CountryVm>> GetCountry(int id)
+        public async Task<ActionResult<CityVm>> GetCityAsync(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
+            var city = await _context.Cities.FindAsync(id);
+            if (city == null)
             {
                 return NotFound();
             }
-            var vm = new CountryVm();
-            vm.CountryName = country.CountryName;
-            vm.CountryId = country.CountryId;
+            var vm = new CityVm();
+            vm.CityId = city.CityId;
+            vm.CityName = city.CityName;
+            vm.CountryId = city.CountryId;
             return vm;
         }
 
         // PUT: api/Country/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCountry(int id, UpdateCountryVm country)
+        public async Task<IActionResult> PutCity(int id, UpdateCityVm cityVm)
         {
-            var existingCountry = await _context.Countries.FindAsync(id);
-            if(existingCountry is null)
+            var existingCity = await _context.Cities.FindAsync(id);
+            if(existingCity is null)
             {
                 return NotFound();
             }
-            existingCountry.CountryName = country.CountryName;
-            _context.Countries.Update(existingCountry);
+            existingCity.CityName = cityVm.CityName;
+            existingCity.CountryId = cityVm.CountryId;
+            _context.Cities.Update(existingCity);
             await _context.SaveChangesAsync();
             return NoContent();
         }
@@ -78,37 +80,39 @@ namespace StudentCouncil.Api.Controllers
         // POST: api/Country
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CountryVm>> PostCityAsync(CreateCountryVm country)
+        public async Task<ActionResult<CityVm>> PostCityAsync(CreateCityVm cityVm)
         {
-            var newCountry = new Country();
-            newCountry.CountryName = country.CountryName;
-            _context.Countries.Add(newCountry);
+            var newCity = new City();
+            newCity.CityName = cityVm.CityName;
+            newCity.CountryId = cityVm.CountryId;
+            _context.Cities.Add(newCity);
             await _context.SaveChangesAsync();
-            var vm = new CountryVm();
-            vm.CountryId = newCountry.CountryId;
-            vm.CountryName = country.CountryName;
-            return CreatedAtAction("GetCountry", new { id = newCountry.CountryId }, vm);
+            var vm = new CityVm();
+            vm.CountryId = cityVm.CountryId;
+            vm.CityName = cityVm.CityName;
+            vm.CityId = newCity.CityId;
+            return CreatedAtAction("GetCountry", new { id = newCity.CityId }, vm);
         }
 
         // DELETE: api/Country/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCityAsync(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
+            var city = await _context.Cities.FindAsync(id);
+            if (city == null)
             {
                 return NotFound();
             }
 
-            _context.Countries.Remove(country);
+            _context.Cities.Remove(city);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CountryExists(int id)
+        private bool CityExists(int id)
         {
-            return _context.Countries.Any(e => e.CountryId == id);
+            return _context.Cities.Any(e => e.CityId == id);
         }
     }
 }
