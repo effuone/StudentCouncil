@@ -41,7 +41,7 @@ namespace StudentCouncil.Api.Controllers
 
         // GET: api/Country/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CountryVm>> GetCountry(int id)
+        public async Task<ActionResult<CountryVm>> GetCountryAsync(int id)
         {
             var country = await _context.Countries.FindAsync(id);
             if (country == null)
@@ -57,7 +57,7 @@ namespace StudentCouncil.Api.Controllers
         // PUT: api/Country/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCountry(int id, UpdateCountryVm country)
+        public async Task<IActionResult> PutCountryAsync(int id, UpdateCountryVm country)
         {
             var existingCountry = await _context.Countries.FindAsync(id);
             if(existingCountry is null)
@@ -73,7 +73,7 @@ namespace StudentCouncil.Api.Controllers
         // POST: api/Country
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CountryVm>> PostCountry(CreateCountryVm country)
+        public async Task<ActionResult<CountryVm>> PostCountryAsync(CreateCountryVm country)
         {
             var newCountry = new Country();
             newCountry.CountryName = country.CountryName;
@@ -87,23 +87,21 @@ namespace StudentCouncil.Api.Controllers
 
         // DELETE: api/Country/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCountry(int id)
+        public async Task<IActionResult> DeleteCountryAsync(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
+            if(await CountryExists(id) == false)
             {
                 return NotFound();
             }
-
+            var country = await _context.Countries.FindAsync(id);
             _context.Countries.Remove(country);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
-        private bool CountryExists(int id)
+        private async Task<bool> CountryExists(int id)
         {
-            return _context.Countries.Any(e => e.CountryId == id);
+            return await _context.Countries.AnyAsync(e => e.CountryId == id);
         }
     }
 }

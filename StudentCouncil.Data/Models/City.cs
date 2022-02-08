@@ -10,6 +10,12 @@ namespace StudentCouncil.Data.Models
             Locations = new HashSet<Location>();
         }
 
+        public City(int countryId, string cityName)
+        {
+            CountryId = countryId;
+            CityName = cityName;
+        }
+
         public int CityId { get; set; }
         public int CountryId { get; set; }
         public string CityName { get; set; }

@@ -25,8 +25,6 @@ namespace StudentCouncil.Api.Controllers
             _logger = logger;
         }
 
-
-
         // GET: api/Country
         [HttpGet]
         public async Task<IEnumerable<CityVm>> GetCitiesAsync()
@@ -63,7 +61,7 @@ namespace StudentCouncil.Api.Controllers
         // PUT: api/Country/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCity(int id, UpdateCityVm cityVm)
+        public async Task<IActionResult> PutCityAsync(int id, UpdateCityVm cityVm)
         {
             var existingCity = await _context.Cities.FindAsync(id);
             if(existingCity is null)
@@ -110,9 +108,9 @@ namespace StudentCouncil.Api.Controllers
             return NoContent();
         }
 
-        private bool CityExists(int id)
+        private async Task<bool> CityExists(int id)
         {
-            return _context.Cities.Any(e => e.CityId == id);
+            return await _context.Cities.AnyAsync(e => e.CityId == id);
         }
     }
 }
