@@ -78,18 +78,24 @@ namespace StudentCouncil.Api.Controllers
         // POST: api/Country
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CityVm>> PostCityAsync(CreateCityVm cityVm)
+        public async Task<ActionResult<CityVm>> PostCityAsync(string cityName, int countryId)
         {
+            var existingCity = await _context.Cities.Where(x=>x.CityName==cityName && x.CountryId == countryId).FirstOrDefaultAsync();
+            if(existingCity is not null)
+            {
+                return BadRequest($"{cityName} already exists");
+            }
             var newCity = new City();
-            newCity.CityName = cityVm.CityName;
-            newCity.CountryId = cityVm.CountryId;
+            newCity.CityName = cityName;
+            newCity.CountryId = countryId;
             _context.Cities.Add(newCity);
             await _context.SaveChangesAsync();
             var vm = new CityVm();
-            vm.CountryId = cityVm.CountryId;
-            vm.CityName = cityVm.CityName;
+            vm.CountryId = countryId;
+            vm.CityName = cityName;
             vm.CityId = newCity.CityId;
-            return CreatedAtAction("GetCountry", new { id = newCity.CityId }, vm);
+            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Retrieved {newCity.CityName}");
+            return CreatedAtAction(nameof(GetCityAsync), new { id = newCity.CityId }, vm);
         }
 
         // DELETE: api/Country/5

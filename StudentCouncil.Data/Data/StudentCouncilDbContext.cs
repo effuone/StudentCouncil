@@ -37,10 +37,7 @@ namespace StudentCouncil.Data.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=tcp:localhost;D");
-            }
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

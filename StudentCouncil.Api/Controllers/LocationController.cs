@@ -19,18 +19,18 @@ namespace StudentCouncil.Api.Controllers
             _logger = logger;
         }
         
-        [HttpGet]
-        public async Task<IEnumerable<Location>> GetAllLocationsAsync()
-        {
-           return await _context.Locations.ToListAsync();
-        }
+        // [HttpGet]
+        // public async Task<IEnumerable<LocationVm>> GetAllLocationsAsync()
+        // {
+
+        // }
         [HttpGet("{id}")]
         public async Task<ActionResult<Location>> GetLocationAsync(int id)
         {
             var location = await _context.Locations.FindAsync(id);
             if(location is not null)
             {
-                _logger.LogInformation($"Retrieved location of id {location.LocationId}.");
+                _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Updated Location id {location.LocationId}");
                 return location;
             }
             return NotFound();
@@ -42,12 +42,10 @@ namespace StudentCouncil.Api.Controllers
             var existingCity = await _context.Cities.FindAsync(locationVm.CityId);
             if(existingCountry is null)
             {
-                _logger.LogInformation($"404: Non-existing country of id of {locationVm.CountryId}.");
                 return NotFound("Country not found.");
             }
             if(existingCity is null)
             {
-                _logger.LogInformation($"404: Non-existing city of id of {locationVm.CountryId}.");
                 return NotFound("City not found.");
             }
             var existingLocation = await _context.Locations.Where(x=>x.CountryId == locationVm.CountryId && x.CityId==locationVm.CityId).FirstOrDefaultAsync();
@@ -60,9 +58,8 @@ namespace StudentCouncil.Api.Controllers
                 await _context.SaveChangesAsync();
                  _logger.LogInformation($"200: Successfully created new location of id {location.LocationId}.");
 
-                return CreatedAtAction("GetLocationAsync", new { id = location.LocationId }, location);
+                return CreatedAtAction(nameof(GetLocationAsync), new { id = location.LocationId }, location);
             }
-            _logger.LogInformation($"Request on existing location of id {existingLocation.LocationId}");
             return BadRequest("Location already exists.");
         }
         [HttpPut("{id}")]
@@ -77,7 +74,7 @@ namespace StudentCouncil.Api.Controllers
             existingLocation.CityId = locationVm.CityId;
             _context.Locations.Update(existingLocation);
             await _context.SaveChangesAsync();
-            _logger.LogInformation($"Updated location by id of {existingLocation.LocationId}");
+            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Updated Location id {existingLocation.LocationId}");
             return NoContent();
         }
 
@@ -91,6 +88,7 @@ namespace StudentCouncil.Api.Controllers
             }
             _context.Locations.Remove(model);
             await _context.SaveChangesAsync();
+            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Deleted Location id {model.LocationId}");
             return NoContent();
         }
     }

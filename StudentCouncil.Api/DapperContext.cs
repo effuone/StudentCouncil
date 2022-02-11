@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace StudentCouncil.Api
 {
@@ -10,7 +9,7 @@ namespace StudentCouncil.Api
         private readonly string _connectionString;
         public DapperContext(IConfiguration configuration)
         {
-            _configuration = configuration; _connectionString = _configuration.GetConnectionString("ZhetistikDB");
+            _configuration = configuration; _connectionString = _configuration.GetConnectionString("Azure");
         }
         public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
     }

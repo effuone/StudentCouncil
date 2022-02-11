@@ -10,10 +10,14 @@ using StudentCouncil.Data.Data;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<DapperContext>();
-var configuration = builder.Configuration.GetConnectionString("StudentCouncilDb");
+var configuration = builder.Configuration.GetConnectionString("Azure");
 builder.Services.AddDbContext<StudentCouncilDbContext>(options=>options.UseSqlServer(configuration));
 // builder.Services.AddSingleton<IIconRepository, FileStructureRepository>();
 builder.Services.AddControllers();
+builder.Services.AddMvc(options =>
+{
+   options.SuppressAsyncSuffixInActionNames = false;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

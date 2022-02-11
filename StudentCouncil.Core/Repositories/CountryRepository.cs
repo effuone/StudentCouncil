@@ -1,5 +1,4 @@
 using System.Data;
-using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using StudentCouncil.Core.Interfaces;
 using StudentCouncil.Data.Data;
@@ -7,31 +6,55 @@ using StudentCouncil.Data.Models;
 
 namespace StudentCouncil.Core.Repositories
 {
-    public class CountryRepository : IAsyncRepository<Country>
+    public class CountryRepository : ICountryRepository
     {
-        public Task<int> CreateAsync(Country model)
+        private readonly StudentCouncilDbContext _dbContext;
+
+        public CountryRepository(StudentCouncilDbContext context)
         {
-            throw new NotImplementedException();
+            _dbContext = context;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task<int> CreateAsync(Country model)
         {
-            throw new NotImplementedException();
+            var obj = await _dbContext.Countries.AddAsync(model);  
+            _dbContext.SaveChanges();  
+            return obj.Entity.CountryId;            
         }
 
-        public Task<IEnumerable<Country>> GetAllAsync()
+        public async Task<IEnumerable<Country>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var query = from country in _dbContext.Countries
+                        select country;
+            return await query.ToListAsync();
         }
 
-        public Task<Country> GetAsync(int id)
+        public async Task<Country> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            var query = (from country in _dbContext.Countries
+                         where country.CountryId == id
+                         select country).SingleOrDefaultAsync();
+            return await query;
         }
 
-        public Task<Country> UpdateAsync(int id, Country model)
+        public async Task<Country> UpdateAsync(int id, Country model)
         {
-            throw new NotImplementedException();
+            var editCountry = await _dbContext.Countries.FindAsync(id);
+            editCountry.CountryName = model.CountryName;
+            await _dbContext.SaveChangesAsync();
+            return editCountry;
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var deleteCountry = await _dbContext.Countries.FindAsync(id);
+            _dbContext.Countries.RemoveRange(deleteCountry);
+            await _dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task<Country> GetAsync(string countryName)
+        {
+            return await _dbContext.Countries.Where(x=>x.CountryName==countryName).FirstOrDefaultAsync();
         }
     }
 }

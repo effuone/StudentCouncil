@@ -10,6 +10,10 @@ namespace StudentCouncil.Data.ViewModels
             CountryName = countryName;
             CityName = cityName;
         }
+        public LocationVm()
+        {
+            
+        }
 
         public int LocationId { get; set; }
         public string CountryName { get; set; }
