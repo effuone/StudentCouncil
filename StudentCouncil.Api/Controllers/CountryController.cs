@@ -52,6 +52,19 @@ namespace StudentCouncil.Api.Controllers
             vm.CountryId = country.CountryId;
             return vm;
         }
+        [HttpGet("{countryName}")]
+        public async Task<ActionResult<CountryVm>> GetCountryAsync(string countryName)
+        {
+            var country = await _countryRepository.GetAsync(countryName);
+            if (country == null)
+            {
+                return NotFound();
+            }
+            var vm = new CountryVm();
+            vm.CountryName = country.CountryName;
+            vm.CountryId = country.CountryId;
+            return vm;
+        }
 
         // PUT: api/Country/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -64,7 +77,8 @@ namespace StudentCouncil.Api.Controllers
                 return NotFound();
             }
             country.CountryName = countryVm.CountryName;
-            await _countryRepository.UpdateAsync(id, country);
+            country.CountryId = id;
+            await _countryRepository.UpdateAsync(country);
             return NoContent();
         }
 
@@ -94,7 +108,7 @@ namespace StudentCouncil.Api.Controllers
             {
                 return NotFound();
             }
-            await _countryRepository.DeleteAsync(id);
+            await _countryRepository.DeleteAsync(existingCountry);
             return NoContent();
         }
     }

@@ -4,20 +4,20 @@ namespace StudentCouncil.Data.ViewModels
 {
     public class LocationVm
     {
-        public LocationVm(int locationId, string countryName, string cityName)
-        {
-            LocationId = locationId;
-            CountryName = countryName;
-            CityName = cityName;
-        }
         public LocationVm()
         {
             
         }
+        public LocationVm(int locationId, int cityId, int countryId)
+        {
+            LocationId = locationId;
+            CityId = cityId;
+            CountryId = countryId;
+        }
 
         public int LocationId { get; set; }
-        public string CountryName { get; set; }
-        public string CityName {get; set;}
+        public int CityId {get; set;}
+        public int CountryId {get; set;}
     }
     public class CreateLocationVm
     {

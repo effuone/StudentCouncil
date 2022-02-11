@@ -1,5 +1,7 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentCouncil.Core.Interfaces;
 using StudentCouncil.Data.Data;
 using StudentCouncil.Data.Models;
 using StudentCouncil.Data.ViewModels;
@@ -10,36 +12,53 @@ namespace StudentCouncil.Api.Controllers
     [Route("api/locations/")]
     public class LocationController : ControllerBase
     {
-        private readonly StudentCouncilDbContext _context;
+        private readonly ICountryRepository _countryRepository; 
+        private readonly ICityRepository _cityRepository; 
+        private readonly ILocationRepository _locationRepository; 
         private readonly ILogger<LocationController> _logger;
 
-        public LocationController(StudentCouncilDbContext context, ILogger<LocationController> logger)
+        public LocationController(ICountryRepository countryRepository, ICityRepository cityRepository, ILocationRepository locationRepository, ILogger<LocationController> logger)
         {
-            _context = context;
+            _countryRepository = countryRepository;
+            _cityRepository = cityRepository;
+            _locationRepository = locationRepository;
             _logger = logger;
         }
-        
-        // [HttpGet]
-        // public async Task<IEnumerable<LocationVm>> GetAllLocationsAsync()
-        // {
-
-        // }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Location>> GetLocationAsync(int id)
+        [HttpGet]
+        public async Task<IEnumerable<LocationVm>> GetAllLocationsAsync()
         {
-            var location = await _context.Locations.FindAsync(id);
-            if(location is not null)
+            var locations = await _locationRepository.GetAllAsync();
+            var list = new List<LocationVm>();
+            foreach (var location in locations)
             {
-                _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Updated Location id {location.LocationId}");
-                return location;
+                var locationVm = new LocationVm();
+                locationVm.LocationId = location.LocationId;
+                locationVm.CityId = location.CityId;
+                locationVm.CountryId = location.CountryId;
+                list.Add(locationVm);
             }
-            return NotFound();
+            return list;
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<LocationVm>> GetLocationAsync(int id)
+        {
+            var location = await _locationRepository.GetAsync(id);
+            if(location is null)
+            {
+                return NotFound();
+            }
+            var vm = new LocationVm();
+            vm.LocationId = location.LocationId;
+            vm.CityId = location.CityId;
+            vm.CountryId = location.CountryId;
+            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Retrieved Location id {location.LocationId}");
+            return vm;
         }
         [HttpPost]
-        public async Task<ActionResult<LocationVm>> PostLocation(CreateLocationVm locationVm)
+        public async Task<ActionResult<LocationVm>> PostLocation(int cityId, int countryId)
         {
-            var existingCountry = await _context.Countries.FindAsync(locationVm.CountryId);
-            var existingCity = await _context.Cities.FindAsync(locationVm.CityId);
+            var existingCountry = await _countryRepository.GetAsync(countryId);
+            var existingCity = await _cityRepository.GetAsync(cityId);
             if(existingCountry is null)
             {
                 return NotFound("Country not found.");
@@ -48,32 +67,34 @@ namespace StudentCouncil.Api.Controllers
             {
                 return NotFound("City not found.");
             }
-            var existingLocation = await _context.Locations.Where(x=>x.CountryId == locationVm.CountryId && x.CityId==locationVm.CityId).FirstOrDefaultAsync();
-            if(existingLocation is null)
+            var existingLocation = await _locationRepository.GetLocationByCityAsync(existingCity.CityId);
+            if(existingLocation is not null)
             {
-                var location = new Location();
-                location.CountryId = locationVm.CountryId;
-                location.CityId = locationVm.CityId;
-                await _context.Locations.AddAsync(location);
-                await _context.SaveChangesAsync();
-                 _logger.LogInformation($"200: Successfully created new location of id {location.LocationId}.");
-
-                return CreatedAtAction(nameof(GetLocationAsync), new { id = location.LocationId }, location);
+                return BadRequest("Location already exists.");
             }
-            return BadRequest("Location already exists.");
+            var location = new Location();
+            location.CountryId = countryId;
+            location.CityId = cityId;
+            await _locationRepository.CreateAsync(location);
+            var vm = new LocationVm();
+            vm.CityId = location.CityId;
+            vm.CountryId = location.CountryId;
+            vm.LocationId = location.LocationId;
+            _logger.LogInformation($"200: Successfully created new location of id {location.LocationId}.");
+
+            return CreatedAtAction(nameof(GetLocationAsync), new { id = location.LocationId }, vm);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLocationAsync(int id, UpdateLocationVm locationVm)
         {
-            var existingLocation = await _context.Locations.FindAsync(id);
+            var existingLocation = await _locationRepository.GetAsync(id);
             if(existingLocation is null)
             {
                 return NotFound();
             }
             existingLocation.CountryId = locationVm.CountryId;
             existingLocation.CityId = locationVm.CityId;
-            _context.Locations.Update(existingLocation);
-            await _context.SaveChangesAsync();
+            await _locationRepository.UpdateAsync(existingLocation);
             _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Updated Location id {existingLocation.LocationId}");
             return NoContent();
         }
@@ -81,14 +102,13 @@ namespace StudentCouncil.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocationAsync(int id)
         {
-            var model = await _context.Locations.FindAsync(id);
-            if (model == null)
+            var existingLocation = await _locationRepository.GetAsync(id);
+            if (existingLocation == null)
             {
                 return NotFound();
             }
-            _context.Locations.Remove(model);
-            await _context.SaveChangesAsync();
-            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Deleted Location id {model.LocationId}");
+            await _locationRepository.DeleteAsync(existingLocation);
+            _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Deleted Location id {existingLocation.LocationId}");
             return NoContent();
         }
     }

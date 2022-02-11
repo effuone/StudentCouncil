@@ -18,7 +18,7 @@ namespace StudentCouncil.Core.Repositories
         public async Task<int> CreateAsync(Country model)
         {
             var obj = await _dbContext.Countries.AddAsync(model);  
-            _dbContext.SaveChanges();  
+            await _dbContext.SaveChangesAsync();  
             return obj.Entity.CountryId;            
         }
 
@@ -37,17 +37,14 @@ namespace StudentCouncil.Core.Repositories
             return await query;
         }
 
-        public async Task<Country> UpdateAsync(int id, Country model)
+        public async Task UpdateAsync(Country model)
         {
-            var editCountry = await _dbContext.Countries.FindAsync(id);
-            editCountry.CountryName = model.CountryName;
+            _dbContext.Countries.Update(model);
             await _dbContext.SaveChangesAsync();
-            return editCountry;
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Country model)
         {
-            var deleteCountry = await _dbContext.Countries.FindAsync(id);
-            _dbContext.Countries.RemoveRange(deleteCountry);
+            _dbContext.Countries.Remove(model);
             await _dbContext.SaveChangesAsync();
 
         }

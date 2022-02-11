@@ -1,11 +1,8 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentCouncil.Core.Interfaces;
+using StudentCouncil.Core.Repositories;
 using StudentCouncil.Data.Data;
 using StudentCouncil.Data.Models;
 using StudentCouncil.Data.ViewModels;
@@ -16,107 +13,106 @@ namespace StudentCouncil.Api.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly StudentCouncilDbContext _context;
-        private readonly ILogger<CityController> _logger;
+        private readonly ICityRepository _cityRepository;
+        private readonly ICountryRepository _countryRepository;
+        private readonly ILogger<CountryController> _logger;
 
-        public CityController(StudentCouncilDbContext context, ILogger<CityController> logger)
+        public CityController(ICityRepository cityRepository, ICountryRepository countryRepository, ILogger<CountryController> logger)
         {
-            _context = context;
+            _cityRepository = cityRepository;
+            _countryRepository = countryRepository;
             _logger = logger;
         }
 
-        // GET: api/Country
+        // GET: api/City
         [HttpGet]
         public async Task<IEnumerable<CityVm>> GetCitiesAsync()
         {
-            var cities = await _context.Cities.ToListAsync();
-            var viewModelList = new List<CityVm>();
+            var cities = await _cityRepository.GetAllAsync();
+            var list = new List<CityVm>();
             foreach (var city in cities)
             {
                 var vm = new CityVm();
                 vm.CityName = city.CityName;
-                vm.CountryId = city.CountryId;
                 vm.CityId = city.CityId;
-                viewModelList.Add(vm);
+                vm.CountryId = city.CountryId;
+                list.Add(vm);
             }
-            return viewModelList;
+            return list;
         }
 
-        // GET: api/Country/5
+        // GET: api/City/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CityVm>> GetCityAsync(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
+            var city = await _cityRepository.GetAsync(id);
             if (city == null)
             {
                 return NotFound();
             }
             var vm = new CityVm();
-            vm.CityId = city.CityId;
             vm.CityName = city.CityName;
+            vm.CityId = city.CityId;
             vm.CountryId = city.CountryId;
             return vm;
         }
 
-        // PUT: api/Country/5
+        // PUT: api/City/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCityAsync(int id, UpdateCityVm cityVm)
         {
-            var existingCity = await _context.Cities.FindAsync(id);
-            if(existingCity is null)
+            var city = await _cityRepository.GetAsync(id);
+            if(city is null)
             {
                 return NotFound();
             }
-            existingCity.CityName = cityVm.CityName;
-            existingCity.CountryId = cityVm.CountryId;
-            _context.Cities.Update(existingCity);
-            await _context.SaveChangesAsync();
+            city.CityName = cityVm.CityName;
+            city.CityId = id;
+            city.CountryId = cityVm.CountryId;
+            await _cityRepository.UpdateAsync(city);
             return NoContent();
         }
 
-        // POST: api/Country
+        // POST: api/City
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CityVm>> PostCityAsync(string cityName, int countryId)
+        public async Task<ActionResult<CityVm>> PostCityAsync(int countryId, string cityName)
         {
-            var existingCity = await _context.Cities.Where(x=>x.CityName==cityName && x.CountryId == countryId).FirstOrDefaultAsync();
-            if(existingCity is not null)
+            var city = await _cityRepository.GetCityByName(cityName);
+            var country = await _countryRepository.GetAsync(countryId); 
+            if(city is not null)
             {
-                return BadRequest($"{cityName} already exists");
+                return BadRequest($"City {cityName} already exists.");
+            }
+            if(country is null)
+            {
+                return NotFound($"Country of id {countryId} not found.");
             }
             var newCity = new City();
             newCity.CityName = cityName;
-            newCity.CountryId = countryId;
-            _context.Cities.Add(newCity);
-            await _context.SaveChangesAsync();
+            newCity.CountryId = country.CountryId;
+            await _cityRepository.CreateAsync(newCity);
+
             var vm = new CityVm();
-            vm.CountryId = countryId;
-            vm.CityName = cityName;
+            vm.CountryId = newCity.CountryId;
+            vm.CityName = newCity.CityName;
             vm.CityId = newCity.CityId;
             _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")} : Retrieved {newCity.CityName}");
             return CreatedAtAction(nameof(GetCityAsync), new { id = newCity.CityId }, vm);
         }
 
-        // DELETE: api/Country/5
+        // DELETE: api/City/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCityAsync(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
-            if (city == null)
+            var existingCity = await _cityRepository.GetAsync(id);
+            if(existingCity is null)
             {
                 return NotFound();
             }
-
-            _context.Cities.Remove(city);
-            await _context.SaveChangesAsync();
-
+            await _cityRepository.DeleteAsync(existingCity);
             return NoContent();
-        }
-
-        private async Task<bool> CityExists(int id)
-        {
-            return await _context.Cities.AnyAsync(e => e.CityId == id);
         }
     }
 }

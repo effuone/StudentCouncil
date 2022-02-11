@@ -8,7 +8,7 @@ namespace StudentCouncil.Core.Interfaces
         public Task<T> GetAsync(int id);
         public Task<IEnumerable<T>> GetAllAsync();
         public Task<int> CreateAsync(T model);
-        public Task<T> UpdateAsync(int id, T model);
-        public Task DeleteAsync(int id);
+        public Task UpdateAsync(T model);
+        public Task DeleteAsync(T model);
     }
 }
