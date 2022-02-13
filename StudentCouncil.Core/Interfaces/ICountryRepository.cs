@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using StudentCouncil.Data.Models;
 
 namespace StudentCouncil.Core.Interfaces
